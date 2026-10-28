@@ -1,37 +1,24 @@
 package uk.ac.westminster.products_api;
 
-/**
- * Week 1 starter class.
- *
- * Already provided:
- *   - a private "name" field
- *   - a no-argument constructor (required by Jackson later in the module)
- *   - a full constructor
- *   - a getter and setter for "name"
- *
- * TODO (Lab Activity 3):
- *   Add a new private String field called "email", following the
- *   JavaBean convention: provide a getter called getEmail().
- */
-public class Person {
+import java.time.LocalDate;
+import java.time.Period;
 
+public class Person{
+    private int id;
     private String name;
+    private LocalDate birthDate;
 
-    public Person() {
-    }
 
-    public Person(String name) {
+    public Person(int id, String name, LocalDate birthDate) {
+        this.id = id;
         this.name = name;
+        this.birthDate = birthDate;
     }
 
-    public String getName() {
-        return name;
+    String calculateAge() {
+        LocalDate now = LocalDate.now();
+        Period period = Period.between(birthDate, now);
+        int years = period.getYears();
+        return String.join(" ", "Person born in", this.birthDate.toString(), "is", String.valueOf(years), "old today");
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    // TODO (Activity 3): add the "email" field and its getter here.
-
 }
